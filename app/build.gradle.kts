@@ -34,6 +34,10 @@ android {
 }
 
 dependencies {
+
+    // Google Maps
+    implementation(libs.google.maps)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
