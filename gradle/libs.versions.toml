@@ -3,7 +3,7 @@ agp = "8.9.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-googleMaps = "18.2.0"
+googleMaps = "19.1.0"
 mockito = "5.11.0"
 mockitoInline = "5.2.0"
 
