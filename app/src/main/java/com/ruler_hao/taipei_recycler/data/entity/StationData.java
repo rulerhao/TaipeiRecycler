@@ -1,11 +1,5 @@
 package com.ruler_hao.taipei_recycler.data.entity;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class StationData {
     private int id;
     private String district;
@@ -18,8 +12,8 @@ public class StationData {
     private String arrivalTime;
     private String departureTime;
     private String location;
-    private String longitude;
-    private String latitude;
+    private Float longitude;
+    private Float latitude;
 
     public int getId() {
         return id;
@@ -109,20 +103,20 @@ public class StationData {
         this.location = location;
     }
 
-    public String getLongitude() {
+    public Float getLongitude() {
         return longitude;
     }
 
     public void setLongitude(String longitude) {
-        this.longitude = longitude;
+        this.longitude = Float.parseFloat(longitude);
     }
 
-    public String getLatitude() {
+    public Float getLatitude() {
         return latitude;
     }
 
     public void setLatitude(String latitude) {
-        this.latitude = latitude;
+        this.latitude = Float.parseFloat(latitude);
     }
 
     @Override
@@ -139,8 +133,8 @@ public class StationData {
                 ", arrivalTime='" + arrivalTime + '\'' +
                 ", departureTime='" + departureTime + '\'' +
                 ", location='" + location + '\'' +
-                ", longitude='" + longitude + '\'' +
-                ", latitude='" + latitude + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
                 '}';
     }
 }
