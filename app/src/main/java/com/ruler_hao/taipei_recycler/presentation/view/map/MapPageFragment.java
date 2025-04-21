@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.ruler_hao.taipei_recycler.R;
+import com.ruler_hao.taipei_recycler.app.MyApp;
 
 public class MapPageFragment extends Fragment {
 
@@ -60,10 +61,8 @@ public class MapPageFragment extends Fragment {
 
     // 取得當前位置
     private void getCurrentLocation() {
-        LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
-
         try {
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location location = MyApp.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
