@@ -23,8 +23,6 @@ import com.ruler_hao.taipei_recycler.R;
 
 public class MapPageFragment extends Fragment {
 
-    private LocationManager locationManager;
-
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
 
     @Nullable
@@ -62,7 +60,7 @@ public class MapPageFragment extends Fragment {
 
     // 取得當前位置
     private void getCurrentLocation() {
-        locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
 
         try {
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
