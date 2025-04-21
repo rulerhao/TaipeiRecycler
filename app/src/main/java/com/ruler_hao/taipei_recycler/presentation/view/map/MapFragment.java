@@ -124,4 +124,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             });
         });
     }
+
+    public void setPosition(double latitude, double longitude) {
+        if (mMap == null) return;
+
+        LatLng latLng = new LatLng(latitude, longitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+    }
 }

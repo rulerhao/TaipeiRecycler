@@ -26,6 +26,8 @@ public class MapPageFragment extends Fragment {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
 
+    private MapFragment mapFragment;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,7 +40,8 @@ public class MapPageFragment extends Fragment {
         FragmentManager fragmentManager = getChildFragmentManager();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.map_container, new MapFragment());
+        mapFragment = new MapFragment();
+        transaction.replace(R.id.map_container, mapFragment);
         transaction.commit();
 
         // 綁定按鈕
@@ -72,6 +75,7 @@ public class MapPageFragment extends Fragment {
             }
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
+            mapFragment.setPosition(latitude, longitude);
 
         } catch (SecurityException e) {
             e.printStackTrace();
