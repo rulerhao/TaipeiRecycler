@@ -129,6 +129,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (mMap == null) return;
 
         LatLng latLng = new LatLng(latitude, longitude);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 }
