@@ -63,13 +63,16 @@ public class MapPageFragment extends Fragment {
     private void getCurrentLocation() {
         try {
             Location location = MyApp.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (location != null) {
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                Toast.makeText(requireContext(), "經度: " + longitude + " 緯度: " + latitude, Toast.LENGTH_SHORT).show();
-            } else {
+            if (location == null) {
+                location = MyApp.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 Toast.makeText(requireContext(), "無法取得位置", Toast.LENGTH_SHORT).show();
             }
+            if (location == null) {
+                return;
+            }
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+
         } catch (SecurityException e) {
             e.printStackTrace();
         }
