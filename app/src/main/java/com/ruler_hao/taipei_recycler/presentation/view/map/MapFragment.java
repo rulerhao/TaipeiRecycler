@@ -111,8 +111,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 public boolean onMarkerClick(@NonNull Marker marker) {
                     StationData stationData = viewModel.markerData.get(marker.hashCode());
                     if (stationData != null) {
-                        Log.d("TEST", "Marker be clicked = " + stationData.getLocation());
-//                    showStationInfoDialog(stationData);
                         stationInfoView.showStationInfo(stationData);
                     }
 
