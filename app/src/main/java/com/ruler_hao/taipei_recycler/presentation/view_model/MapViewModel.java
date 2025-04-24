@@ -5,6 +5,7 @@ import com.ruler_hao.taipei_recycler.data.entity.StationData;
 import com.ruler_hao.taipei_recycler.domain.use_case.TruckUseCase;
 import com.ruler_hao.taipei_recycler.presentation.view.map.MapViewModelCallback;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,6 +17,7 @@ public class MapViewModel {
     private MapViewModelCallback callback;
 
     public List<StationData> truckData;
+    public final HashMap<Integer, StationData> markerData = new HashMap<>();
 
     private MapViewModel() {
         ExecutorService executor = Executors.newSingleThreadExecutor();

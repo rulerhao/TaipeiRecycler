@@ -31,7 +31,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private final MapViewModel viewModel = MapViewModel.getInstance();
-    private final HashMap<Integer, StationData> markerData = new HashMap<>();
 
     private StationInfoView stationInfoView;
     private final MapViewModelCallback viewModelCallback = new MapViewModelCallback() {
@@ -107,12 +106,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         .title("垃圾車位置")
                         .icon(BitmapDescriptorFactory.fromBitmap(truckBitmap))
                 );
-                markerData.put(marker.hashCode(), viewModel.truckData.get(i));
+                viewModel.markerData.put(marker.hashCode(), viewModel.truckData.get(i));
             }
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(@NonNull Marker marker) {
-                    StationData stationData = markerData.get(marker.hashCode());
+                    StationData stationData = viewModel.markerData.get(marker.hashCode());
                     if (stationData != null) {
                         Log.d("TEST", "Marker be clicked = " + stationData.getLocation());
 //                    showStationInfoDialog(stationData);
