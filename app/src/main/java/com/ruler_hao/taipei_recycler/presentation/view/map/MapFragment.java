@@ -3,6 +3,7 @@ package com.ruler_hao.taipei_recycler.presentation.view.map;
 import static com.ruler_hao.taipei_recycler.utils.DrawableUtils.getBitmapFromVectorDrawable;
 
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,8 +23,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.ruler_hao.taipei_recycler.R;
+import com.ruler_hao.taipei_recycler.app.MyApp;
 import com.ruler_hao.taipei_recycler.data.entity.StationData;
 import com.ruler_hao.taipei_recycler.presentation.view_model.MapViewModel;
+import com.ruler_hao.taipei_recycler.utils.LocationUtils;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
@@ -77,8 +80,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (mMap == null) return;
 
         requireActivity().runOnUiThread(() -> {
-            LatLng taipei101 = new LatLng(25.0330, 121.5654);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(taipei101, 15));
+            Location location = LocationUtils.getLocation(MyApp.locationManager);
+            if (location == null) {
+                return;
+            }
+            setPosition(location.getLatitude(), location.getLongitude());
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override
                 public void onMapClick(@NonNull LatLng latLng) {
