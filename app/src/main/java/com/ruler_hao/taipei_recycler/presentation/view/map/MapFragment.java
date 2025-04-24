@@ -93,12 +93,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (viewModel.truckData == null) return;
 
         requireActivity().runOnUiThread(() -> {
+            Bitmap truckBitmap = getBitmapFromVectorDrawable(getContext(), R.drawable.trash_truck);
             for (int i = 0; i < viewModel.truckData.size(); i++) {
                 LatLng latLng = new LatLng(
                         viewModel.truckData.get(i).getLatitude(),
                         viewModel.truckData.get(i).getLongitude()
                 );
-                Bitmap truckBitmap = getBitmapFromVectorDrawable(getContext(), R.drawable.trash_truck);
                 Marker marker = map.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title("垃圾車位置")
