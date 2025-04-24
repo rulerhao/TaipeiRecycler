@@ -68,9 +68,9 @@ public class MapPageFragment extends Fragment {
             Location location = MyApp.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location == null) {
                 location = MyApp.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                Toast.makeText(requireContext(), "無法取得位置", Toast.LENGTH_SHORT).show();
             }
             if (location == null) {
+                Toast.makeText(requireContext(), "無法取得位置", Toast.LENGTH_SHORT).show();
                 return;
             }
             double latitude = location.getLatitude();
