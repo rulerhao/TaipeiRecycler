@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.ruler_hao.taipei_recycler.R;
 import com.ruler_hao.taipei_recycler.app.MyApp;
+import com.ruler_hao.taipei_recycler.utils.LocationUtils;
 
 public class MapPageFragment extends Fragment {
 
@@ -53,7 +54,7 @@ public class MapPageFragment extends Fragment {
     private void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            getCurrentLocation();
+            setCurrentPosition();
         } else {
             requestPermissions(
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -63,23 +64,14 @@ public class MapPageFragment extends Fragment {
     }
 
     // 取得當前位置
-    private void getCurrentLocation() {
-        try {
-            Location location = MyApp.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (location == null) {
-                location = MyApp.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            }
-            if (location == null) {
-                Toast.makeText(requireContext(), "無法取得位置", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
-            mapFragment.setPosition(latitude, longitude);
-
-        } catch (SecurityException e) {
-            e.printStackTrace();
+    private void setCurrentPosition() {
+        Location location = LocationUtils.getLocation(MyApp.locationManager);
+        if (location == null) {
+            Toast.makeText(requireContext(), "無法取得當前位置", Toast.LENGTH_SHORT).show();
+            return;
         }
+        // 更新地圖位置
+        mapFragment.setPosition(location.getLatitude(), location.getLongitude());
     }
 
     @Override
@@ -87,7 +79,7 @@ public class MapPageFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getCurrentLocation();
+                setCurrentPosition();
             } else {
                 Toast.makeText(requireContext(), "未取得定位權限", Toast.LENGTH_SHORT).show();
             }
