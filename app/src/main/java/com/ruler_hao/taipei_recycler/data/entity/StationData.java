@@ -1,5 +1,7 @@
 package com.ruler_hao.taipei_recycler.data.entity;
 
+import java.util.Locale;
+
 public class StationData {
     private int id;
     private String district;
@@ -9,8 +11,8 @@ public class StationData {
     private String vehicleNumber;
     private String route;
     private String vehicleTrip;
-    private String arrivalTime;
-    private String departureTime;
+    private int arrivalTime;
+    private int departureTime;
     private String location;
     private Float longitude;
     private Float latitude;
@@ -79,20 +81,44 @@ public class StationData {
         this.vehicleTrip = vehicleTrip;
     }
 
+    // Convert minutes to time format like "HH:mm"
     public String getArrivalTime() {
+        int hours = arrivalTime / 60;
+        int minutes = arrivalTime % 60;
+
+        return String.format(Locale.US, "%02d:%02d", hours, minutes);
+    }
+
+    public int getArrivalTimeInt() {
         return arrivalTime;
     }
 
+    // Convert HHmm to minutes
     public void setArrivalTime(String arrivalTime) {
-        this.arrivalTime = arrivalTime;
+        try {
+            int hours = Integer.parseInt(arrivalTime.substring(0, 2));
+            int minutes = Integer.parseInt(arrivalTime.substring(2, 4));
+            this.arrivalTime = hours * 60 + minutes;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getDepartureTime() {
-        return departureTime;
+        int hours = departureTime / 60;
+        int minutes = departureTime % 60;
+
+        return String.format(Locale.US, "%02d:%02d", hours, minutes);
     }
 
     public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
+        try {
+            int hours = Integer.parseInt(departureTime.substring(0, 2));
+            int minutes = Integer.parseInt(departureTime.substring(2, 4));
+            this.departureTime = hours * 60 + minutes;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getLocation() {
