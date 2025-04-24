@@ -25,8 +25,6 @@ import com.ruler_hao.taipei_recycler.R;
 import com.ruler_hao.taipei_recycler.data.entity.StationData;
 import com.ruler_hao.taipei_recycler.presentation.view_model.MapViewModel;
 
-import java.util.HashMap;
-
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -72,7 +70,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void init() {
         initMap();
-        setMap();
+        setMarker(mMap);
     }
 
     private void initMap() {
@@ -90,8 +88,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-    private void setMap() {
-        if (mMap == null) return;
+    private void setMarker(GoogleMap map) {
+        if (map == null) return;
         if (viewModel.truckData == null) return;
 
         requireActivity().runOnUiThread(() -> {
@@ -101,14 +99,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         viewModel.truckData.get(i).getLongitude()
                 );
                 Bitmap truckBitmap = getBitmapFromVectorDrawable(getContext(), R.drawable.trash_truck);
-                Marker marker = mMap.addMarker(new MarkerOptions()
+                Marker marker = map.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title("垃圾車位置")
                         .icon(BitmapDescriptorFactory.fromBitmap(truckBitmap))
                 );
                 viewModel.markerData.put(marker.hashCode(), viewModel.truckData.get(i));
             }
-            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(@NonNull Marker marker) {
                     StationData stationData = viewModel.markerData.get(marker.hashCode());
